@@ -79,7 +79,7 @@ class Grid {
      * @param cellX
      * @param cellY
      * @param elements
-     * @returns {boolean}
+     * @returns objet | null
      */
     cellHasElement(cellX, cellY, elements) {
         for (let i = 0; i < elements.length; i++) {
@@ -247,14 +247,14 @@ class Grid {
 
                 }
                 // Si on est en mode combat, on ne change pas le joueur actif
-                if (this.isPlayersSideBySide(x, y)) {
+                if (this.isPlayersSideBySide()) {
                     this.combat = true;
                     this.setActivePlayer(i)
                 } else {
                     this.players[i].active = false;
                 }
             } else {
-                if (!this.isPlayersSideBySide(x, y)) {
+                if (!this.isPlayersSideBySide()) {
                     this.players[i].active = true
                 }
             }
@@ -382,7 +382,7 @@ class Grid {
 
         player2CardWeapon.innerHTML = `
             <img src="${this.players[1].weapon.image}" width="100"/>
-            Degat: ${this.players[1].weapon.degat} / Points: ${this.players[1].points <= 0 ? 0 : this.players[1].points}          
+            Degat: ${this.players[1].weapon.degat} / Points: ${this.players[1].points <= 0 ? 0 : this.players[1].points}
         `
 
         if (this.combat && recreateEvents) {
@@ -424,7 +424,7 @@ class Grid {
             autreJoueur.points -= joueurEnCours.weapon.degat
         }
         if (autreJoueur.points <= 0) {
-            this.endGame(0)
+            this.endGame()
         }
         joueurEnCours.active = false;
         autreJoueur.active = true;
@@ -463,13 +463,12 @@ class Grid {
 
     /**
      * Permet de déclencher la fin de partie (modale + bouton recommencer)
-     * @param playerWinnerIndex
      */
-    endGame(playerWinnerIndex) {
-        const modal = document.querySelector('.modal-container')
+    endGame() {
+        const modal = document.querySelector('.modal-container');
         const winnerText = modal.querySelector('#winner');
-        const button = modal.querySelector('button')
-        winnerText.textContent = playerWinnerIndex === 0 ? '1' : '2'
+        const button = modal.querySelector('button');
+        winnerText.textContent = this.players[0].points <= 0 ? '2' : this.players[1].points <= 0 ? '1' : '';
         modal.style.display = 'block';
 
         button.addEventListener('click', this.reload)

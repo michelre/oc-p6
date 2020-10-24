@@ -8,5 +8,3 @@ const nbWeapons = 4; //Maximum 4 car dépendant des images
  */
 new Grid(totalCols, totalRows, nbObstacles, nbWeapons)
 //const grid = new Grid(totalCols, totalRows, nbObstacles, nbWeapons, 2)
-
-

@@ -198,12 +198,13 @@ div#player1{
   min-height:243px;
   background: #ffcc66;
   border-radius: 10px;
-  border-radius: 10px;
+
 }
 
 div#player2{
   min-height:243px;
   background: #ff6b79;
+  border-radius: 10px;
 }
 
 

@@ -5,9 +5,9 @@
 * Penser à changer d'arme
 * Chaque joueur doit avoir une arme qui n'est pas celle par défaut
 * Se positionner sur une case d'arme mais ne pas la prendre
-* Tour par tour: Une fois que le combat a commencé, on peut plus se déplacer sur la grille (layer opaque par dessus la grille) 
+* Tour par tour: Une fois que le combat a commencé, on peut plus se déplacer sur la grille (layer opaque par dessus la grille)
 * C'est le joueur qui lance le combat qui a la main en 1er
-* Montrer les attaques et les défenses. Si le joueur est en défense, 
+* Montrer les attaques et les défenses. Si le joueur est en défense,
 mettre en évidence la division des dommages par 2 (pour un seul coup)
 * Monter que le combat s'arrête quand 1 des deux joueurs arrive à 0
 * Modal de fin permettant de recommencer la partie
@@ -33,3 +33,15 @@ Exemple: le fichier index.js est importé après Grid.js car instanciation de la
 * Parler des cases sur lesquelles le joueur actif peut se déplacer. Présenter la méthode playerMove
 * PlayerMove: La méthode calcule et retourne les cases sur lesquelles le joueur actif peut se déplacer
 * A partir de ces cases, on ajoute un évènement click sur chaque case pour permettre au joueur de se déplacer + class movable pour la colorer
+* Attention particulière à la méthode cellHasElement: vérifie que la case comporte un élément. Au niveau des paramètres la fonction prend une coordonnée (x, et y) + un tableau d'éléments (armes, des joueurs, des obstacles).
+* A la fin du déplacement, on vérifie grâce à la méthode cellHasElement que la nouvelle case du joueur possède une arme. Si oui, on demande confirmation au joueur de prendre ou pas l'arme
+* Methode isPlayersSideBySide permet de vérifier que les joueurs sont côte à côte
+* A la fin du déplacement, on vérifie que les joueurs sont côte à côté pour déclencher le combat
+* Important: A chaque tour, on redessine la grille
+* Le fait de redessiner la grille fois permet de mettre de côté les problématiques de dessin de la grille. On ne se soucie que de la logique
+* Combat: 2 méthodes importantes: joueurAttaquer et joueurDéfendre
+* joueurDefendre: On fait passer le champ defendre du joueur actif à true ce qui lui permettra au tour d'après de ne prendre que la moitié des dégats
+* joueurAttaquer: On décrémente les points de l'autre joueur du nombre de dégâts de notre arme
+* Méthode tourParTour: Permet de changer le joueur actif
+* La fin du jeu est déclenchée par la méthode joueurAttaquer. Si le nombre de points de l'autre joueur est à 0, on appelle la méthode endGame qui permet d'afficher la modale de fin
+* le $ de jquery est un raccourci dans notre cas au document.querySelector et au addEventListener (remplacé par on avec jquery)
